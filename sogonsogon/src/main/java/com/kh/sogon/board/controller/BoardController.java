@@ -12,4 +12,10 @@ public class BoardController {
 	   public String freeBoardView() {
 		   return "board/freeBoard";
 	   }
+	   
+	   @RequestMapping("boardList")
+	   public String boardListView() {
+		   return "board/boardList";
+	   }
+	   
 }
