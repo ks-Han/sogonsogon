@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/room/*")
 public class RoomController {
 	   @RequestMapping("roomList")
-	   public String freeBoardView() {
+	   public String roomView() {
 		   return "room/roomList";
+	   }
+	   
+	   @RequestMapping("roomDetail")
+	   public String roomDetailView() {
+		   return "room/roomDetail";
 	   }
 }
