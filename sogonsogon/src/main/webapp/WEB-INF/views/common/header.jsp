@@ -102,7 +102,7 @@ select {
                         <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" data-toggle="modal" href="#modal-container-1">로그인</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">|</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">회원가입</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${contextPath}/member/signUpView">회원가입</a></li>
                     </ul>
                 </div>
             </div>
