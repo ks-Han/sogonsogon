@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class RoomController {
 	   @RequestMapping("roomList")
 	   public String freeBoardView() {
-		   return "room/roomDetail";
+		   return "room/roomList";
 	   }
 }
