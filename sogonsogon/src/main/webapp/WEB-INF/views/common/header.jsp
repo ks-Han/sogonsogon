@@ -201,7 +201,7 @@ select {
         <script>
             var didScroll;
             var lastScrollTop = 0;
-            var delta = 400;
+            var delta = 5;
             var navbarHeight = $("#mainNav").outerHeight();
             
             $(window).scroll(function(event){

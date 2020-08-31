@@ -5,79 +5,83 @@
 <head>
 <meta charset="UTF-8">
 <style>
-header.masthead {
-	padding-top: 10rem;
-	padding-bottom: calc(10rem - 8.5rem);
-	background: linear-gradient(to bottom, rgba(192, 155, 155, 0.8) 0%,
-		rgba(179, 118, 72, 0.8) 100%), url("./assets/img/bg-masthead.jpg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-size: cover;
-}
-
-header.masthead h1 {
-	font-size: 2.25rem;
-}
-
-@media ( min-width : 1200px) {
-	header.masthead h1 {
-		font-size: 3.5rem;
-	}
-}
-
-.searchbar {
-	margin-bottom: auto;
-	margin-top: auto;
-	height: 60px;
-	background-color: #353b48;
-	border-radius: 30px;
-	padding: 10px;
-}
-
-.search_input {
-	color: white;
-	border: 0;
-	outline: 0;
-	background: none;
-	width: 0;
-	caret-color: transparent;
-	line-height: 40px;
-	transition: width 0.4s linear;
-}
-
-.searchbar:hover>.search_input {
-	padding: 0 10px;
-	width: 450px;
-	caret-color: red;
-	transition: width 0.4s linear;
-}
-
-.searchbar:hover>.search_icon {
-	background: white;
-	color: #e74c3c;
-}
-
-.search_icon {
-	height: 40px;
-	width: 40px;
-	float: right;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50%;
-	color: white;
-	text-decoration: none;
-}
-
-select {
-	background-color: #353b48;
-	color: white;
-}
-
-.nav-up {
-	top: -50px;
-}
+		header.masthead {
+			padding-top: 10rem;
+			padding-bottom: calc(10rem - 8.5rem);
+			background: linear-gradient(to bottom, rgba(192, 155, 155, 0.8) 0%,
+				rgba(179, 118, 72, 0.8) 100%), url("./assets/img/bg-masthead.jpg");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: scroll;
+			background-size: cover;
+		}
+		
+		header.masthead h1 {
+			font-size: 2.25rem;
+		}
+		
+		@media ( min-width : 1200px) {
+			header.masthead h1 {
+				font-size: 3.5rem;
+			}
+		}
+		
+		.searchbar {
+			margin-bottom: auto;
+			margin-top: auto;
+			height: 60px;
+			background-color: #353b48;
+			border-radius: 30px;
+			padding: 10px;
+		}
+		
+		.search_input {
+			color: white;
+			border: 0;
+			outline: 0;
+			background: none;
+			width: 0;
+			caret-color: transparent;
+			line-height: 40px;
+			transition: width 0.4s linear;
+		}
+		
+		.searchbar:hover>.search_input {
+			padding: 0 10px;
+			width: 450px;
+			caret-color: red;
+			transition: width 0.4s linear;
+		}
+		
+		.searchbar:hover>.search_icon {
+			background: white;
+			color: #e74c3c;
+		}
+		
+		.search_icon {
+			height: 40px;
+			width: 40px;
+			float: right;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+			color: white;
+			text-decoration: none;
+		}
+		
+		select {
+			background-color: #353b48;
+			color: white;
+		}
+		
+		.nav-up {
+			top: -50px;
+		}
+		
+        #list-table td{
+        cursor : pointer;
+        }
 </style>
 </head>
 <body>
@@ -119,7 +123,7 @@ select {
 
 				<div class="card card-outline-secondary my-4">
 					<div class="card-body">
-						<table class="table">
+						<table class="table" id="list-table">
 							<tr>
 								<th>글 번호</th>
 								<th>말머리</th>
@@ -148,7 +152,7 @@ select {
 								<td>1</td>
 							</tr>
 						</table>
-
+						<a class="btn btn-primary float-right" href="#">글쓰기</a>
 						<form action="#" method="get">
 							<select name="searchKey" class="form-control"
 								style="width: 100px; display: inline-block;">
@@ -183,6 +187,26 @@ select {
                     $("#moreInfo").hide();
                     enterChk = true;
                 }
+            });
+            
+         	// 게시글 상세보기 기능 구현
+            $(function(){
+          	  $("#list-table td").on("click", function(){
+          		  var roomBoardNo = $(this).parent().children().eq(0).text();
+      				
+          		  // 게시글 상세조회 요청 주소
+          		  var roomBoardUrl =
+          			  "${contextPath}/room/${pInfo.boardType}/"+ roomBoardNo + "?cp=${pInfo.currentPage}";	
+          			  
+          			  // @PathValue 방식 : 구분되어야 하는 리소스를 호출하는 url로 사용
+          			  // spring/board/1/500?cp=3
+          					  
+          			  // 파라미터(쿼리스트링) : 정렬, 필터링
+          			  // spring/board?type=1&boardNo=500&cp=3
+          					  
+          		// 게시글 상세조회 요청
+          		location.href = roomBoardUrl;
+          	  });
             });
         </script>
 </body>

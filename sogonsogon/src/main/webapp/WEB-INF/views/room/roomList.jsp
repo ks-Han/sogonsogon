@@ -347,8 +347,8 @@
                <p>방소개</p>
                <input type="password"> 
             
-                <a href="#"><div class="modal-button2">뒤로가기</div></a>
-                <a href="#"><div class="modal-button2">참여하기</div></a>
+                <a data-dismiss="modal"><div class="modal-button2">뒤로가기</div></a>
+                <a href="roomDetail"><div class="modal-button2">참여하기</div></a>
       
 
            </div>
