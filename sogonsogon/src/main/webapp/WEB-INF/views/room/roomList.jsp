@@ -1,275 +1,370 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+</html><%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
-    <style>
-       .pagination {
-            justify-content: center;
-        }
-        #searchForm{
-            position: relative;
+<style>
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        #searchForm>*{
-            top : 0;
+        .room-box {
+            width: 100%;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: unset;
+            font-family: 'GmarketSansMedium';
+        }
+
+        .roomlist-box {
+            width: 360px;
+            height: 220px;
+            border-radius: 2.5px;
+            box-sizing: border-box;
+            border: 2px solid black;
+            margin: 50px;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 14px 14px rgb(255, 178, 181), -14px 14px rgb(255, 178, 181);
+            position: relative;
+            text-align: center;
+        }
+
+        .roomlist-box>img{
+            width: 70px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 240px;
+            left: 0;
+            right: 0;
+        } 
+       
+        #clip-imgs{
+            width: 160px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 194px;
+            left: 0;
+            right: 0;
+        }
+
+        #tagbox{
+           width: 100%;
+           height: 25px;
+           text-align: center;
+           position: relative;
+           margin: auto;
+           margin-top: 5px;
+        }
+
+        .tags{
+            font-size: 14px;
+            background-color: rgba(116, 116, 116, 0.1);
+            display: inline-block;
+            margin: 4px 4px 0px 4px;
+            border-radius: 3px;
+            padding: 2px;
         }
         
-        .boardTtitle > img{
-             width: 50px;
-             height: 50px;
+        .join-button{
+            width: 90px;
+            height: 30px;
+            background-color: rgb(248, 162, 113);
+            border-radius: 14px;
+            margin: auto;
+            color: white;
+            line-height: 200%;
+            margin-top: 18px;
+            cursor: pointer;
         }
-          
-        .board-list{ margin: 100px auto;}
+        .category{
+            font-size: 14px;
+            margin:28px 0px 2px 0px;
+        }
+        .review-box>p{
+            clear: both;
+        }
+        .room-title{
+            font-size: 20px;
+            margin:0px;
+        }
+        .enter-number{
+           margin-bottom:1px;
+            font-size: 13px;
+        }
         
-        #list-table td{
-           cursor: pointer;
+        .top-area{
+           width: 100%;
+           height: 100px;
+           text-align: center;
+           margin-top: 40px;
         }
-   </style>
+        .empty{
+           width: 100%;
+           height: 40px;
+        }
+        
+        /*  */
+        
+     .table-title {
+      color: #fff;
+      background: #ff9d38;      
+      padding: 16px 25px;
+      margin: -20px 160px 10px;
+      border-radius: 3px 3px 0 0;
+    }
+    
+      .pageN{
+          width: 100%;
+          height: 50px;
+          text-align: center;
+       }
+      .pagination2 {
+        display: inline-block;
+      }
+      
+      .pagination2 a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+      }
+      
+      .pagination2 a.active {
+        background-color:  #212121;
+        color: white;
+        border: 1px solid #4CAF50;
+      }
+      
+      .pagination2 a:hover:not(.active) {background-color: #ddd;}
+      
+      .pagination2 a:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      
+      .pagination2 a:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      
+      .selectList{
+         text-align: center;
+      }
+      
+        *, *:before, *:after {
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+       }
+
    
+   .search-box {
+     position: relative;
+     width: 100%;
+     max-width: 360px;
+     height: 60px;
+     border-radius: 120px;
+     margin: 0 auto;
+   }
+   
+   .search-border {
+     display: block;
+     width: 100%;
+     max-width: 360px;
+     height: 60px;
+   }
+   .border {
+     fill: none;
+     stroke: #ff8c1a;
+     stroke-width: 5;
+     stroke-miterlimit: 10;
+   }
+   
+   
+   #search {
+     font-family: 'Montserrat Alternates', sans-serif;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     border-radius: 120px;
+     border: none;
+     background: rgba(255,255,255,0);
+     padding: 0 68px 0 68px;
+     color: black;
+     font-size: 1.32em;
+     font-weight: 400;
+     letter-spacing: -0.015em;
+     outline: none;
+   }
+   #search::-webkit-input-placeholder {color: rgb(112, 112, 112);}
+   .search-icon,
+   .go-icon {
+      position: absolute;
+      top: 0;
+      height: 60px;
+      width: 86px;
+      line-height: 61px;
+      text-align: center;
+   }
+   .search-icon {
+      left: 0;
+      pointer-events: none;
+      font-size: 1.22em;
+      will-change: transform;
+      top: 9px;
+   }
+   .go-icon {
+      right: 0;
+      pointer-events: none;
+      font-size: 1.38em;
+      will-change: opacity;
+      cursor: default;
+      opacity: 0;
+   }
+   
+      .modal-button2{
+         width: 100px;
+         height: 35px;
+         border-radius: 18px;
+         background-color: cornflowerblue;
+         line-height: 200%;
+         float: left;
+         color: white;
+         text-decoration: none;
+     }
+     .modal-body{
+        text-align: center;
+     }
+
+</style>
 </head>
 <body>
-   <jsp:include page="../common/header.jsp"/>
+   <jsp:include page="../common/header.jsp" />
    
+   <div class="empty"></div>
    
-   <div class="container board-list">
-      
-      <h1>${boardList[0].boardName}</h1>
-      
-        <div style="height:530px">
-            <table class="table table-hover table-striped" id="list-table">
-                <thead>
-                    <tr>
-                        <th>글번호 </th>
-                        <th>카테고리 </th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <c:choose>
-                      <c:when test="${empty boardList}">
-                         <tr><td colspan="6">존재하는 게시글이 없습니다.</td></tr>
-                      </c:when>
-                      
-                      <c:otherwise>
-                         <c:forEach var="board" items="${boardList}">
-                         <!-- ${boardList}에 있는 요소를 반복접근 하여
-                              board라는 변수에 저장하여 내부에서 사용
-                          -->
-                               <tr>
-                                  <td>${board.boardNo}</td>
-                                  <td>${board.boardCategory}</td>
-                                  <td class="boardTtitle">
-                                     
-                                     <c:forEach items="${thList}" var="th">
-                                        <c:if test="${th.parentBoardNo == board.boardNo}">
-                                        <%-- 현재 출력중인 게시글 목록 번호와 일치하는 썸네일이 있을 경우 --%>
-                                           <c:set var="src" value="${contextPath}${th.filePath}/${th.fileChangeName}" />
-                                           <%-- contextPath: spring /  filePath : /resources/uploadImages--%>
-                                           <%-- spring/resources/uploadImages/2000892 --%>
-                                              <img src="${src}">
-                                        </c:if>
-                                     </c:forEach>
-                                     
-                                  
-                                     ${board.boardTitle}
-                                  </td>
-                                  <td>${board.boardWriter}</td>
-                                  <td>${board.readCount}</td>
-                                  <td>
-                                     <%-- 필요한 객체 선언 --%>
-                                     <jsp:useBean id="now" class="java.util.Date" />
-                                     <%-- Date now = new Date(); 랑 같은의미 (현재시간) (script 주석써야함!)--%>
-                                     
-                                     <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
-                                     <fmt:formatDate var="createDate" value="${board.boardCreateDate}" pattern="yyyy-MM-dd"/>
-                                     <fmt:formatDate var="createTime" value="${board.boardCreateDate}" pattern="hh:mm:ss"/>
-                                        
-                                     <c:choose>
-                                        <c:when test="${today == createDate}">
-                                           ${createTime}
-                                        </c:when>
-                                        <c:otherwise>
-                                           ${createDate}
-                                        </c:otherwise>
-                                     </c:choose>
-                                  </td>
-                               </tr>
-                         </c:forEach>
-                      </c:otherwise>
-                      
-                   </c:choose>
-                </tbody>
-            </table>
-        </div>
-
-        <hr>
-        
-        <%-- 로그인이 되어있는 경우에만 글쓰기 버튼 보이게 하기 --%>
-        <c:if test="${! empty loginMember }">
-           <a class="btn btn-primary float-right" href="../${boardList[0].boardType}/insert">글쓰기</a>
-        </c:if>
-
-         <!--------------------------------- 페이징바  ---------------------------------->
-         
-      <div class="my-4">
-            <ul class="pagination">
-               
-               <c:if test="${pInfo.currentPage  > pInfo.pagingBarSize}">   
-                   <li>
-                      <!-- 맨 처음으로(<<) == href='1?cp=1'-->
-                       <a class="page-link text-primary" href="${pInfo.boardType}?cp=1">&lt;&lt;</a>
-                   </li>
-                   
-                   <li>
-                      <!-- 이전으로(<) -->
-                      <!-- prev 생성 식 : (현재페이지 -1) / 페이징바 사이즈(10) * 10 -->
-                      <!-- fmt 태그를 이용한 소수점 제거 -->
-                      <fmt:parseNumber var="operand1" 
-                               value="${(pInfo.currentPage-1)/pInfo.pagingBarSize}"
-                               integerOnly="true" />
-                      
-                      <c:set var="prev" value="${operand1 * 10 }" />
-                      
-                         <a class="page-link text-primary" href="${pInfo.boardType}?cp=${prev}">&lt;</a>
-                   </li>
-                </c:if>
-                
-                <!-- 10개의 페이지 목록 -->
-                <c:forEach var="p" begin="${pInfo.startPage}" end="${pInfo.endPage}">
-                   <c:choose>
-                      <c:when test="${p==pInfo.currentPage}">
-                         <li><a class="page-link">${p}</a></li>
-                      </c:when>
-                      <c:otherwise>
-                         <li>
-                            <a class="page-link text-primary" href="${pInfo.boardType}?cp=${p}">${p}</a>
-                         </li>
-                      </c:otherwise>
-                   </c:choose>
-                </c:forEach>
-                
-                
-                 <!-- 다음 페이지로(>) -->
-                <!-- next 생성 식:(현재페이지+9)/10*10+1 -->
-                <c:if test="${pInfo.maxPage>pInfo.endPage}">
-                <!-- 다음페이지(>) -->
-                   <li>
-                   <fmt:parseNumber var="operand2" value="${(pInfo.currentPage+9)/10}" integerOnly="true"/>
-                   <c:set var="next" value="${operand2*10+1}"/>
-                  <a class="page-link text-primary" href="${pInfo.boardType}?cp=${next}">&gt;</a>
-                   </li>
-                   
-                   <!-- 맨 끝으로(>>) -->
-                   <li>
-                       <a class="page-link text-primary" href="${pInfo.boardType}?cp=${pInfo.maxPage}">&gt;&gt;</a>
-                   </li>
-                </c:if>
-            </ul>
-        </div>        
-
-        <div>
-           <div  class="text-center" id="searchForm" style="margin-bottom:100px;">
-                <span>
-                    카테고리(다중 선택 가능)<br>
-                    <label for="exercise">운동</label> 
-                    <input type="checkbox" name="ct" value="운동" id="exercise">
-                    &nbsp;
-                    <label for="movie">영화</label> 
-                    <input type="checkbox" name="ct" value="영화" id="movie">
-                    &nbsp;
-                    <label for="music">음악</label> 
-                    <input type="checkbox" name="ct" value="음악" id="music">
-                    &nbsp;
-                    <label for="cooking">요리</label> 
-                    <input type="checkbox" name="ct" value="요리" id="cooking">
-                    &nbsp;
-                    <label for="game">게임</label> 
-                    <input type="checkbox" name="ct" value="게임" id="game">
-                    &nbsp;
-                    <label for="etc">기타</label> 
-                    <input type="checkbox" name="ct" value="기타" id="etc">
-                    &nbsp;
-                </span>
-                <br>
-                <select name="sKey" class="form-control" style="width:100px; display: inline-block;">
-                    <option value="tit">글제목</option>
-                    <option value="con">내용</option>
-                    <option value="tit-con">제목+내용</option>
-                </select>
-                <input type="text" name="sVal" class="form-control" style="width:25%; display: inline-block;">
-                <button class="form-control btn btn-primary" id="searchBtn" type="button" style="width:100px; display: inline-block;">검색</button>
-            </div>
-            <!-- 파라미터는 String[]형태로 넘어감 / searchkey : 검색조건 / sVal : 검색어 -->
-            
-        </div>
-      
+   <div class="table-title">
+      <div class="row">
+         <div class="col-sm-4">
+            <h2><b>Study Room</b></h2>
+         </div>
+      </div>
    </div>
-   <jsp:include page="../common/footer.jsp"/>
-   
-   <script>
-      // 게시글 상세보기 기능 구현
-      $(function(){
-         $("#list-table td").on("click", function(){
-            // 글번호
-            var boardNo = $(this).parent().children().eq(0).text();
+
+      <div class="selectList">
+         <select>
+              <option>IT</option>
+              <option>공모전</option>
+              <option>면접</option>
+              <option>전공</option>
+              <option>외국어</option>
+              <option>기타</option>
+          </select>      
+       </div>             
+
+   <%int num=0; %>
+    <!-- 1 -->
+    <%for(int i=0; i<2; i++){ %>
+    <div class="room-box"> <!--review box 1-1-->
+        <%for(int j=0; j<3; j++){ %>
+        <div class="roomlist-box">
+            <img src="${contextPath}/resources/images/clip.png">
             
-            // 게시글 상세조회 요청 주소
-            var boardUrl = "${contextPath}/board/${pInfo.boardType}/"+ boardNo + "?cp=${pInfo.currentPage}";
+            <p class="room-content">
+                <p class="category">[IT]</p>
+                <p class="room-title">초보 자바 개발자들 모임</p>
+                <p class="enter-number">
+                    방장 : 누구누구님 <br>
+                    참가인원 : /10명
+                    │ 개설일 : 2020. 05. 12.
+                </p>
+
+            <div id="tagbox">
+                <div class="tags">#스터디</div> 
+                <div class="tags">#코딩</div> 
+                <div class="tags">#자바</div> 
+                <div class="tags">#개발자</div> 
+                <div class="tags">#스프링</div>
+            </div>
+            <a data-toggle="modal"  data-target="#myModal"><div class="join-button">참여하기</div></a>
             
-            // @PathVariable 방식 : 구분되어야 하는 리소스를 호출하는 url로 사용
-            // spring/board/1/500?cp=3
-            
-            // 파라미터(쿼리스트링) : 정렬, 필터링
-            // spring/board?type=1&boardNo=500&cp=3
-            
-         // 게시글 상세 조회 요청
-         location.href = boardUrl;
-         });
-      });
-      
-      // --------------------------------------------------검색 버튼 동작-----------------------------------------------------------------
-      $("#searchBtn").on("click", function(){
-         // 검색 값에 따라 url을 조합하여 저장할 변수
-         var searchUrl = "";
-         
-         // 검색에 필요한 요소 (카테고리, 검색 조건, 검색어) 읽어오기
-         var $ct = $("input[name='ct']:checked");
-         var $sKey = $("select[name='sKey']");
-         var $sVal = $("input[name='sVal']");
-         
-         // 1) 검색에 필요한 카테고리 또는 검색어가 입력 되었는지 확인
-         // - 입력이 되지 않은 경우 -> 해당 게시판 첫 페이지로 돌아가는 url 생성
-         // - 하나라도 입력된 경우 -> 검색 url 생성(쿼리스트링 조합 작업 필요)
-         
-         $ct.each(function(index, item){
-            console.log($ct.val());
-         });
-         console.log($sKey.val());
-         console.log($sVal.val());
-         
-         // 선택된 카테고리의 개수가 0이고, 입력된 검색어의 길이가 0인 경우
-         // == 카테고리 체크 X , 검색어 입력 X 상태로 검색버튼을 클릭한 경우
-         // -> 해당 게시판의 첫 페이지로 이동
-         if($ct.length == 0 && $sVal.val().trim().length == 0){
-            searchUrl ="${pInfo.boardType}";
-         }
-            
-         // 2) location.href를 통해 검색 검색 요청 전달 
-         location.href = searchUrl;
-      });
+        </div> <!-- roomlist end-->
+       <%num++;} %>
+    </div><!--room-container end-->
+      <%} %>
       
       
+   <div class="pageN">
+      <div class="pagination2">
+        <a href="#">&laquo;</a>
+        <a href="#">1</a>
+        <a href="#" class="active">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&raquo;</a>
+      </div>
+   </div>
+       
+       <div class="top-area">    
+               <div class="search-box">
+                <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
+                <form action="" class="search-form">
+                    <input type="text" placeholder="Search" id="search" autocomplete="off">
+                </form>
+                <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
+                 xml:space="preserve">
+              <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
+              <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
+            </svg>
+                <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
+            </div>
+      </div> <!-- top-area end -->
       
-   </script>
+      
+     <!-- Modal -->
+     <div class="modal fade" id="myModal" role="dialog">
+       <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title"></h4>
+           </div>
+           <div class="modal-body">
+
+                <p>초보 자바 개발자들 모임</p>
+               <p>방소개</p>
+               <input type="password"> 
+            
+                <a href="#"><div class="modal-button2">뒤로가기</div></a>
+                <a href="#"><div class="modal-button2">참여하기</div></a>
+      
+
+           </div>
+    
+         </div>
+       </div>
+     </div> <!-- modal end -->
    
    
-   
+      
+   <jsp:include page="../common/footer.jsp" />
+
+<script>
+   $(".join-button").on("click",function(){
+      
+   });
+</script>
 </body>
 </html>
