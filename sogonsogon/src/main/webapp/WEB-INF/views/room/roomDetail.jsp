@@ -93,8 +93,8 @@
 			<div class="col-lg-3">
 				<h1 class="my-4 card-header">방 정보</h1>
 				<div class="list-group">
-					<p>카테고리 : JAVA</p>
-					<p>방장 : 김반장</p>
+					<p>카테고리 : ${roomDetail.roomTypeName}</p>
+					<p>방장 : ${roomDetail.memberId}</p>
 					<p>회원 수 : 10명</p>
 					<p class="list-group-item fas fa-angle-down" id="moreInfo"
 						style="cursor: pointer; color: blue;">&nbsp;더 보기</p>
@@ -106,8 +106,7 @@
 
 				</div>
 				<div>
-					<button id="prevAtag" class="btn-secondary"
-						style="margin-top: 10px;">방 나가기</button>
+					<button id="prevAtag" class="btn-secondary" style="margin-top: 10px;" onclick="location.href='../roomList'">방 나가기</button>
 				</div>
 			</div>
 			<!-- /.col-lg-3 -->
@@ -116,7 +115,7 @@
 
 				<div class="card mt-4">
 					<div class="card-body">
-						<h3 class="card-title">방 제목입니다</h3>
+						<h3 class="card-title">${roomDetail.roomTitle}</h3>
 					</div>
 				</div>
 				<!-- /.card -->
@@ -132,24 +131,6 @@
 								<th>작성일</th>
 								<th>조회</th>
 								<th>좋아요</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>질문</td>
-								<td>코드 오류 질문 합니다</td>
-								<td>예시요</td>
-								<td>15:35</td>
-								<td>1</td>
-								<td>12</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>자유</td>
-								<td>태풍이 온다</td>
-								<td>강태풍</td>
-								<td>11일전</td>
-								<td>10</td>
-								<td>1</td>
 							</tr>
 						</table>
 						<a class="btn btn-primary float-right" href="#">글쓰기</a>
@@ -181,7 +162,7 @@
             var enterChk = false;
             $("#moreInfo").on("click", function() {
                 if(!enterChk) {
-                    var $p1 = $("<p>").html("<br>방 가입날짜 : 2020-08-27<br> 현재 방 내에서 채택된 답변 수 : 10 <br> 작성한 글 수  : 1<br> 작성한 글 수 : 3<br>");
+                    var $p1 = $("<p>").html("<br><h6>방 생성날짜 : ${roomDetail.roomCreateDate}</h6><br> 현재 방 내에서 채택된 답변 수 : 10 <br> 작성한 글 수  : 1<br> 작성한 글 수 : 3<br>");
                     var $button = $("<button>", {type : "button" , id : "outRoom", class : "btn-primary"}).text("방 탈퇴");
                     $("#infoList").append($p1, $button);
                     $("#moreInfo").hide();
@@ -207,7 +188,38 @@
           		// 게시글 상세조회 요청
           		location.href = roomBoardUrl;
           	  });
+          	  
+	  			var url = "${contextPath}/roomBoard/boardList/${roomDetail.roomNo}";
+				$.ajax({
+					url : url,
+					type : "POST",
+					dataType:"json",
+					success : function(rbList){
+						console.log(rbList);
+						
+						
+						$.each(rbList, function(i){
+							$table = $("#list-table");
+							$tr = $("<tr>");
+							$td1 = $("<td>").text(rbList[i].roomBoardNo);
+							$td2 = $("<td>").text(rbList[i].roomBoardType);
+							$td3 = $("<td>").text(rbList[i].roomBoardTitle);
+							$td4 = $("<td>").text(rbList[i].roomBoardWriter);
+							$td5 = $("<td>").text(rbList[i].roomBoardCreateDate);
+							$td6 = $("<td>").text(rbList[i].roomBoardReadCount);
+							$td7 = $("<td>").text('0');
+							
+							$tr.append($td1,$td2,$td3,$td4,$td5,$td6,$td7);
+							$table.append($tr);
+						});
+						
+					},error : function(){
+						console.log("통신 실패");
+					}
+				});
             });
+         	
+
         </script>
 </body>
 </html>

@@ -348,7 +348,7 @@
                <input type="password"> 
             
                 <a data-dismiss="modal"><div class="modal-button2">뒤로가기</div></a>
-                <a href="roomDetail"><div class="modal-button2">참여하기</div></a>
+                <a href="roomDetail/2"><div class="modal-button2">참여하기</div></a>
       
 
            </div>
